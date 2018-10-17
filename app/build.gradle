@@ -132,7 +132,7 @@ android {
 
     if (isRunningOnTravis) {
         // configure keystore
-        signingConfigs.config.storeFile = file("../AssociationAurav3.jks")
+        signingConfigs.config.storeFile = file("../AssociationAurav3.jks.enc")
         signingConfigs.config.storePassword = System.getenv("keystore_password")
         signingConfigs.config.keyAlias = System.getenv("keystore_alias")
         signingConfigs.config.keyPassword = System.getenv("keystore_alias_password")
