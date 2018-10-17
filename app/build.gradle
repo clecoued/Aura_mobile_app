@@ -82,9 +82,7 @@ dependencies {
 
 android {
     signingConfigs {
-        config {
-            storeFile file('/home/lecoucl/Android/keystores/android.jks')
-        }
+        config
     }
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
@@ -124,6 +122,9 @@ android {
     buildTypes {
         debug {
             testCoverageEnabled true
+        }
+        release{
+             signingConfig signingConfigs.config
         }
     }
 
