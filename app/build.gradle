@@ -128,6 +128,16 @@ android {
         }
     }
 
+    def isRunningOnTravis = System.getenv("CI") == "true"
+
+    if (isRunningOnTravis) {
+        // configure keystore
+        signingConfigs.config.storeFile = file("AssociationAurav3.keystore.enc")
+        signingConfigs.config.storePassword = System.getenv("keystore_password")
+        signingConfigs.config.keyAlias = System.getenv("keystore_alias")
+        signingConfigs.config.keyPassword = System.getenv("keystore_alias_password")
+    }
+
     flavorDimensions "mode"
 
     productFlavors {
