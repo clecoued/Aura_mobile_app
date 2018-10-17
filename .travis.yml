@@ -89,4 +89,4 @@ jobs:
     - bash <(curl -s https://codecov.io/bash)
 before_install:
 - openssl aes-256-cbc -K $encrypted_152f9326ee20_key -iv $encrypted_152f9326ee20_iv
-  -in AssociationAurav3.jks.enc -out ./../AssociationAurav3.jks -d
+  -in AssociationAurav3.jks.enc -out AssociationAurav3.jks -d
