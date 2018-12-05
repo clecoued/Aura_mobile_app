@@ -64,7 +64,7 @@ public class RemoteDataWebSocketRepository implements RemoteDataRepository.TimeS
     private final String TAG = this.getClass().getSimpleName();
     private WebSocketClient mWebSocketClient;
     private String mDatabaseUrl;
-    public final static String PREPROD_SERVER_URL = "wss://data.preprod.aura.healthcare";
+    public final static String PREPROD_SERVER_URL = "wss://data.aura.healthcare";
 
     public RemoteDataWebSocketRepository(String iDatabaseUrl) {
         mDatabaseUrl = iDatabaseUrl;
@@ -115,43 +115,11 @@ public class RemoteDataWebSocketRepository implements RemoteDataRepository.TimeS
             }
         };
 
-        SSLContext sslContext;
-
-        try {
-            sslContext = SSLContext.getInstance("TLS");
-
-            // Custom trust manager used to accept self-signed certificate
-            //TODO: switch to standard SSLContext to once we plug the official Let's encrypt on server
-            TrustManager tm = new X509TrustManager() {
-                @Override
-                public void checkClientTrusted(X509Certificate[] chain,
-                                               String authType) throws CertificateException {
-                }
-
-                @Override
-                public void checkServerTrusted(X509Certificate[] chain,
-                                               String authType) throws CertificateException {
-                }
-
-                @Override
-                public X509Certificate[] getAcceptedIssuers() {
-                    return null;
-                }
-            };
-            sslContext.init(null, new TrustManager[]{tm}, null);
-        }
-        catch ( NoSuchAlgorithmException | KeyManagementException e) {
-            e.printStackTrace();
-            throw new IllegalArgumentException();
-        }
-
-
-        SSLSocketFactory factory = sslContext.getSocketFactory();
-
+        SSLSocketFactory factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
         try {
             mWebSocketClient.setSocket(factory.createSocket());
-
             // force web-socket to stay open
+
             mWebSocketClient.getSocket().setSoTimeout(0);
             mWebSocketClient.setConnectionLostTimeout(500);
 
